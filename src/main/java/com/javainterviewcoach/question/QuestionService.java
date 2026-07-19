@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.random.RandomGenerator;
 
 @Service
@@ -19,7 +20,7 @@ public class QuestionService {
 
     @Autowired
     public QuestionService(QuestionRepository repository, OllamaEvaluationService evaluationService) {
-        this(repository, RandomGenerator.getDefault(), evaluationService);
+        this(repository, new Random(), evaluationService);
     }
 
     QuestionService(QuestionRepository repository, RandomGenerator random, OllamaEvaluationService evaluationService) {
