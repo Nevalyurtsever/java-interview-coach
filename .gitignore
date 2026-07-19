@@ -1,0 +1,22 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Logs and local environment files
+*.log
+.env
+application-local.properties
+
+# Never commit credentials
+*.key
+*.pem

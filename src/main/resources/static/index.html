@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Java interview practice with local AI feedback">
+    <title>Java Interview Coach</title>
+    <link rel="stylesheet" href="styles.css?v=20260719-4">
+</head>
+<body>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<main class="shell">
+    <header class="topbar">
+        <a class="brand" href="#"><span class="brand-mark">J</span><span>Java Interview Coach</span></a>
+        <div class="top-actions">
+            <div class="language-switch" aria-label="Language">
+                <button id="langTr" class="active" type="button">TR</button><button id="langEn" type="button">EN</button>
+            </div>
+            <div class="stats"><span><small data-i18n="score">Puan</small><strong id="score">0</strong></span><span><small data-i18n="questions">Soru</small><strong id="questionCount">0</strong></span></div>
+        </div>
+    </header>
+
+    <section id="welcomeView" class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow" data-i18n="heroEyebrow">JUNIOR JAVA GELİŞTİRİCİLER İÇİN</span>
+            <h1 data-i18n="heroTitle">Mülakata daha hazır gir.</h1>
+            <p data-i18n="heroText">Temel konuları tekrar et, gerçek mülakat sorularını çöz ve kendi bilgisayarında çalışan yapay zekâ koçundan açıklayıcı geri bildirim al.</p>
+            <button id="startButton" class="primary" type="button"><span data-i18n="start">Mülakata Başla</span><b>→</b></button>
+            <div class="privacy-note"><span>●</span><span data-i18n="localNote">Ücretsiz ve yerel: cevapların bilgisayarından çıkmaz.</span></div>
+        </div>
+        <div class="hero-card" aria-hidden="true"><div class="mini-head"><span></span><span></span><span></span></div><code>public class Candidate {</code><code>&nbsp;&nbsp;private final Skill java;</code><code>&nbsp;&nbsp;public void grow() {</code><code>&nbsp;&nbsp;&nbsp;&nbsp;practice.everyDay();</code><code>&nbsp;&nbsp;}</code><code>}</code><div class="ready"><i>✓</i><span data-i18n="ready">Hazırsın.</span></div></div>
+    </section>
+
+    <section id="practiceView" class="workspace hidden">
+        <div class="workspace-head"><div><span class="eyebrow" data-i18n="workspace">ÇALIŞMA ALANI</span><h2 data-i18n="choose">Nasıl çalışmak istersin?</h2></div><button id="resetButton" class="link-button" type="button" data-i18n="reset">İstatistikleri sıfırla</button></div>
+        <nav class="mode-tabs"><button id="practiceModeButton" class="active" type="button" data-i18n="categoryMode">Kategori çalışması</button><button id="reportedModeButton" type="button" data-i18n="reportedMode">Gerçek mülakat soruları</button><button id="codingModeButton" type="button" data-i18n="codingMode">Kodlama görevleri</button></nav>
+        <div id="categoryList" class="categories"></div>
+        <div id="reportedQuestions" class="reported-grid hidden"></div>
+
+        <div id="codingArea" class="hidden">
+            <div id="codingTaskNavigation" class="task-nav"></div>
+            <section id="codingWorkspace" class="coding-workspace">
+                <article class="coding-task"><span id="codingLevel" class="eyebrow"></span><h3 id="codingTitle"></h3><p id="codingDescription"></p><ul id="codingDetails"></ul></article>
+                <div class="ide"><div class="ide-head"><span class="lights">● ● ●</span><strong>Main.java</strong><span>Java 17</span></div><textarea id="codeEditor" spellcheck="false"></textarea><div class="ide-foot"><span>UTF-8</span><span>Java</span></div></div>
+            </section>
+        </div>
+
+        <article id="questionCard" class="question-card hidden">
+            <div class="question-meta"><span id="categoryBadge"></span><span data-i18n="thinkWrite">Düşün, kendi cümlelerinle anlat</span></div>
+            <h3 id="questionText"></h3>
+            <label for="answerInput" data-i18n="yourAnswer">Senin cevabın</label>
+            <textarea id="answerInput" maxlength="3000" rows="7" data-i18n-placeholder="placeholder" placeholder="Cevabını kendi cümlelerinle yaz..."></textarea>
+            <p id="formError" class="error" role="alert"></p>
+            <button id="checkButton" class="primary" type="button" data-i18n="check">Cevabı Kontrol Et</button>
+            <div id="evaluationLoading" class="evaluation-loading hidden"><span class="spinner"></span><div><strong data-i18n="evaluating">Cevabın değerlendiriliyor…</strong><small data-i18n="evaluatingNote">Yerel model ilk yanıtta biraz zaman alabilir.</small></div></div>
+
+            <div id="resultPanel" class="results hidden">
+                <section id="aiEvaluation" class="evaluation hidden"><div class="evaluation-head"><div><span class="eyebrow" data-i18n="coachFeedback">KOÇ GERİ BİLDİRİMİ</span><h4 id="aiSummary"></h4></div><strong id="aiScore"></strong></div>
+                    <div class="feedback-grid"><div><h5 data-i18n="correct">Doğru noktalar</h5><ul id="correctPoints"></ul></div><div><h5 data-i18n="incorrect">Düzeltilmesi gerekenler</h5><ul id="incorrectPoints"></ul></div><div><h5 data-i18n="missing">Ekleyebileceklerin</h5><ul id="missingPoints"></ul></div></div>
+                    <div class="improved"><h5 data-i18n="improved">Geliştirilmiş cevabın</h5><p id="improvedAnswer"></p></div>
+                </section>
+                <div class="answer-grid"><section><h4 data-i18n="sample">Örnek doğru cevap</h4><p id="sampleAnswer"></p></section><section><h4 data-i18n="why">Neden?</h4><p id="explanation"></p></section></div>
+                <div class="self"><p data-i18n="selfRate">Kendi cevabını nasıl değerlendirirsin?</p><div><button data-score="0" data-i18n="didntKnow">Bilmiyordum</button><button data-score="1" data-i18n="partly">Kısmen bildim</button><button data-score="2" data-i18n="knew">Biliyordum</button></div></div>
+            </div>
+        </article>
+        <div id="loading" class="page-status hidden"><span class="spinner"></span><span data-i18n="loadingQuestion">Soru hazırlanıyor…</span></div>
+        <div id="apiError" class="page-status error-box hidden" role="alert"></div>
+    </section>
+</main>
+<footer><span>Java Interview Coach</span><span data-i18n="footer">Her soru, mülakata bir adım daha yakın.</span></footer>
+<script src="app.js?v=20260719-4"></script>
+</body>
+</html>
